@@ -1,15 +1,31 @@
 ﻿
 app.service('messagesService', function ($http, $q) {
     var baseUrl = "http://localhost:8080/";
+	var messages = [];
 
+	initMessages();
+	
+	function initMessages(){
+		$http.get(baseUrl + 'messages').then(function(result){
+				result.data.forEach(function(message){
+					messages.push(message);
+				});
+			});
+			
+		// var defer = $q.defer();
+
+			// $http.get(baseUrl + 'messages').then(function(result){
+				// defer.resolve(result.data);
+			// });
+
+			// defer.promise.then(function (result) {
+				// messages = result;
+			// });
+	};
+	
+	
     this.getMessages = function () {
-        var defer = $q.defer();
-
-        $http.get(baseUrl + 'messages').then(function(result){
-            defer.resolve(result.data);
-        });
-
-        return defer.promise;
+		return messages;
     };
 
     this.insertMessage = function (newMessage) {

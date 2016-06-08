@@ -1,11 +1,9 @@
 ﻿
-app.controller('MessagesController', function ($scope, messagesService) {
+app.controller('MessagesController', function ($scope, $location, messagesService) {
     getAllMessages();
 
     function getAllMessages() {
-        messagesService.getMessages().then(function (result) {
-            $scope.messages = result;
-        });
+        $scope.messages = messagesService.getMessages();
     }
 	
 	$scope.images = [
@@ -71,6 +69,47 @@ app.controller('MessagesController', function ($scope, messagesService) {
             }
         }
     };
+	
+	
+	$scope.editMessage = function(id){
+		$location.path('/messages/'+id);
+		
+	};
+});
+
+
+
+app.controller('EditMessageController', function ($scope, $routeParams, messagesService) {
+	getMessage();
+	
+	$scope.images = [
+		'pictures/adele1.jpg',
+		'pictures/adele2.jpg',
+		'pictures/blue_pony.jpg',
+		'pictures/dino_heart.jpg',
+		'pictures/helloWorld.jpg',
+		'pictures/Igor_1.jpg',
+		'pictures/Igor_2.jpg',
+		'pictures/pink_pony.jpg',
+		'pictures/rainbow.jpg',
+		'pictures/unicorn.jpg'
+		
+	];
+	
+	$scope.templates = [
+	'templates/templateA.html',
+	'templates/templateB.html',
+	'templates/templateC.html'
+	];
+
+    function getMessage() {
+        messagesService.getMessages().forEach(function(message){
+			if(message.id == $routeParams.id)
+			{
+				$scope.message = message;
+			}
+		});
+    }
 });
 
 //

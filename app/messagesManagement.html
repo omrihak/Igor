@@ -75,6 +75,7 @@
         <div class="row">
             <div class="span3 message" ng-repeat="message in messages | orderBy:'name'">
                 <button class="btn close messageClose" ng-click="deleteMessage(message['id'])">&times;</button>
+				<button class="btn edit messageEdit" ng-click="editMessage(message['id'])">&#9998;</button>
                 <div class="messageHeader">{{message.name}}</div>
                 <div class="messageBody">{{message.template}}</div>
                 <div class="messageBody">{{message.screens.toString()}}</div>

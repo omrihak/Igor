@@ -1,0 +1,73 @@
+<div class="container">
+    <header>
+        <h3>Messages</h3>
+    </header>
+
+    <div class="row">
+        <div class="span3">
+           Name:
+            <br />
+            <input ng-model="message.name" type="text" placeholder="Name">
+        </div>
+        <div class="span3">
+            Address:
+            <br />
+            <input data-ng-model="message.address" type="text" placeholder="Address">
+        </div>
+        <div class="span3">
+            Duration:
+            <br />
+            <input ng-model="message.duration" type="number" placeholder="Duration">
+        </div>
+        <div class="span3">
+            Screen:
+            <br />
+            <input data-ng-model="message.screen" type="number" placeholder="Screen">
+        </div>
+        <div class="span3">
+            Texts:
+            <br />
+            <input ng-model="message.text1" type="text" placeholder="Text1">
+            <input ng-model="message.text2" type="text" placeholder="Text2">
+            <input ng-model="message.text3" type="text" placeholder="Text3">
+        </div>
+        <div class="span3">
+            Pictures:
+            <br />
+			<select id="imageSelect1" ng-model="message.image1">
+			  <option ng-repeat="image in images" value="{{image}}">{{image}}</option>
+			</select>
+			<select id="imageSelect2" ng-model="message.image2">
+			  <option ng-repeat="image in images" value="{{image}}">{{image}}</option>
+			</select>
+        </div>
+        <div class="span3">
+            Start Date:
+            <br />
+            <input ng-model="message.startDate" type="date" placeholder="Start Date">
+            <br />
+            End Date:
+            <br />
+            <input ng-model="message.endDate" type="date" placeholder=" End Date">
+        </div>
+        <div class="span3">
+            Template:
+            <br />
+			<select  id="templateSelect1" ng-model="message.template">
+			  <option ng-repeat="template in templates" value="{{template}}">{{template}}</option>
+			</select>
+           
+        </div>
+        <div class="span12">
+            <br />
+            <button id="submitCustomer" class="btn btn-primary" type="button"
+                    ng-disabled="!message.name || !message.address || !message.duration|| !message.screen || !message.startDate||
+                    !message.endDate || !message.template"
+                    ng-click="insertMessage()">Save Message</button>
+        </div>
+
+
+    </div>
+
+
+</div>

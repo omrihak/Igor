@@ -7,6 +7,11 @@ app.config(function ($routeProvider) {
             {
                 controller: 'MessagesController as controller',
                 templateUrl: 'app/messagesManagement.html'
+            })
+			.when('/messages/:id',
+            {
+                controller: 'EditMessageController as controller',
+                templateUrl: 'app/editMessageManagement.html'
             });
         ////Define a route that has a route parameter in it (:customerID)
         //.when('/customerorders/:customerID',
