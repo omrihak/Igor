@@ -1,0 +1,81 @@
+<div class="container">
+    <header>
+        <h3>Messages</h3>
+    </header>
+
+    <div class="row">
+        <div class="span3">
+           Name:
+            <br />
+            <input ng-model="newMessage.name" type="text" placeholder="Name">
+        </div>
+        <div class="span3">
+            Address:
+            <br />
+            <input data-ng-model="newMessage.address" type="text" placeholder="Address">
+        </div>
+        <div class="span3">
+            Duration:
+            <br />
+            <input ng-model="newMessage.duration" type="number" placeholder="Duration">
+        </div>
+        <div class="span3">
+            Screen:
+            <br />
+            <input data-ng-model="newMessage.screen" type="number" placeholder="Screen">
+        </div>
+        <div class="span3">
+            Texts:
+            <br />
+            <input ng-model="newMessage.text1" type="text" placeholder="Text1">
+            <input ng-model="newMessage.text2" type="text" placeholder="Text2">
+            <input ng-model="newMessage.text3" type="text" placeholder="Text3">
+        </div>
+        <div class="span3">
+            Pictures:select
+            <br />
+            <input ng-model="newMessage.image1" type="text" placeholder="Image1">
+            <input ng-model="newMessage.image2" type="text" placeholder="Image2">
+        </div>
+        <div class="span3">
+            Start Date:
+            <br />
+            <input ng-model="newMessage.startDate" type="date" placeholder="Start Date">
+            <br />
+            End Date:
+            <br />
+            <input ng-model="newMessage.endDate" type="date" placeholder=" End Date">
+        </div>
+        <div class="span3">
+            Template: select
+            <br />
+            <input ng-model="newMessage.template" type="" placeholder="Template">
+        </div>
+        <div class="span12">
+            <br />
+            <button id="submitCustomer" class="btn btn-primary" type="button"
+                    ng-disabled="!newMessage.name || !newMessage.address || !newMessage.duration|| !newMessage.screen || !newMessage.startDate||
+                    !newMessage.endDate || !newMessage.template"
+                    ng-click="insertMessage()">Add Message</button>
+        </div>
+
+
+    </div>
+
+    <br /><br />
+
+    <div>
+        <div class="row">
+            <div class="span3 message" ng-repeat="message in messages | orderBy:'name'">
+                <button class="btn close messageClose" ng-click="deleteMessage(message['id'])">&times;</button>
+                <div class="messageHeader">{{message.name}}</div>
+                <div class="messageBody">{{message.template}}</div>
+                <div class="messageBody">{{message.screens.toString()}}</div>
+                <a href="#/message/{{customer.id}}" class="messageBody btn-link">View {{ customer.orders.length }} Orders</a>
+            </div>
+        </div>
+    </div>
+
+    <pre id="default-spacing">{{messages | json}}</pre>
+
+</div>

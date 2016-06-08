@@ -1,0 +1,101 @@
+﻿<html>
+<head>
+    <title>
+        Nofar and Carmel site
+    </title>
+    <script src="libs/socket.io/socket.io.min.js"></script>
+    <script type="text/javascript" src="libs/jquery/jquery.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var index = -1;
+            var messages;
+            var screen = window.location.href.split('=')[1];
+
+            $.getJSON( "http://localhost:8080/messages/screen=" + screen, function( messagesForScreen ) {
+                messages = messagesForScreen;
+
+                scheduleMessages();
+            });
+
+            function loadMessageToHtmlPage(adToShow) {
+                $("#result").load(adToShow.template, function () {
+                    $.each(adToShow.texts, function (textIndex, text) {
+                        $("#line" + (textIndex + 1)).html(text);
+                    });
+                    $.each(adToShow.pictures, function (pictureIndex, pictureRef) {
+                        $("#image" + (pictureIndex + 1)).attr("src", pictureRef);
+                    });
+                });
+            }
+            
+            function convertStringToDate(dateString) {
+                if (dateString == '')
+                    return null;
+
+                var parsedDate = new Date();
+                parsedDate.setFullYear(dateString.substr(6, 4), dateString.substr(3, 2) - 1, dateString.substr(0, 2));
+
+                return parsedDate;
+            }
+
+            function isItTimeToShowMessage(timesToShow) {
+                var isItTime = false;
+                var today = new Date();
+
+                $.each(timesToShow, function (index, message) {
+                    var startDate = convertStringToDate(message.startDate);
+                    var endDate = convertStringToDate(message.endDate);
+
+                    if (today >= startDate &&
+                        today <= endDate) {
+                        isItTime = true;
+                    }
+                });
+
+                return isItTime;
+            }
+
+            function scheduleMessages() {
+                index = (index + 1) % messages.length;
+
+                var durationToWait = showMessageIfInTime();
+                setTimeout(scheduleMessages, durationToWait * 1000);
+            }
+
+            function showMessageIfInTime() {
+                var currentMessageToDisplay;
+                var message = messages[index];
+
+                if (isItTimeToShowMessage(message.timeToShow)) {
+                    loadMessageToHtmlPage(message);
+                    currentMessageToDisplay = message;
+                }
+
+                if (currentMessageToDisplay) {
+                    return (currentMessageToDisplay.duration);
+                } else {
+                    return 0;
+                }
+            }
+
+            var socket = io.connect('http://localhost:8081');
+
+            socket.on('connect', function(){
+                socket.emit('addUser', screen);
+            });
+
+            socket.on('newMessage', function (newMessage) {
+                messages.push(newMessage);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h2>Nofar and Carmel site</h2>
+    <div id=result></div>
+</body>
+
+</html>
+

@@ -1,0 +1,91 @@
+[{
+  "id":1,
+	"name": "message 1",
+	"texts": ["Hello, it's me",
+		"I was wondering if after all these years you'd like to meet",
+		"To go over everything"],
+	"pictures": ["pictures/adele1.jpg", "pictures/adele2.jpg"],
+	"template": "templates/templateA.html",
+	"duration": 2,
+	"timeToShow": [{
+		"startDate": "01/01/2016",
+		"endDate": "31/12/2016"
+	}],
+	"screen": 2,
+    "address":"yasmin 56 shoham"
+},{
+  "id":2,
+	"name": "message 1",
+	"texts": ["Hello, it's me",
+		"I was wondering if after all these years you'd like to meet"],
+	"pictures": ["pictures/adele1.jpg", "pictures/adele2.jpg"],
+	"template": "templates/templateA.html",
+	"duration": 2,
+	"timeToShow": [{
+		"startDate": "01/01/2016",
+		"endDate": "31/12/2016"
+	}],
+	"screen":1,
+    "address":"karlom 3 modiin"
+}, {
+  "id":3,
+	"name": "message 2",
+	"texts": ["a", "b"],
+	"pictures": ["pictures/helloWorld.jpg"],
+	"template": "templates/templateB.html",
+	"duration": 3,
+	"timeToShow": [{
+		"startDate": "01/03/2016",
+		"endDate": "30/04/2016"
+	}],
+	"screen":1,
+  "address":"hagalil 34 lapid"
+}, {
+  "id":4,
+	"name": "message 3",
+	"texts": [],
+	"pictures": [],
+	"template": "templates/templateC.html",
+	"duration": 2,
+	"timeToShow": [{
+		"startDate": "01/05/2016",
+		"endDate": "15/06/2016"
+	}],
+	"screen":2,
+  "address":"bosmat 50 shoham"
+}, {
+  "id":5,
+	"name": "message 4",
+	"texts": ["line 1",
+		"line 2"],
+	"pictures": [],
+	"template": "templates/templateA.html",
+	"duration": 3,
+	"timeToShow": [{
+		"startDate": "29/03/2016",
+		"endDate": "15/04/2016"
+	}],
+	"screen":1,
+  "address":"hamizpe 5 shoham"
+},
+  {
+    "id": 6,
+    "name": "message 5",
+    "texts": [
+      "nofar1"
+    ],
+    "pictures": [
+      "pictures/rainbow.jpg",
+      "pictures/unicorn.jpg"
+    ],
+    "template": "templates/templateB.html",
+    "duration": 1,
+    "timeToShow": [
+      {
+        "startDate": "01/04/2016",
+        "endDate": "30/04/2016"
+      }
+    ],
+    "screen": 3,
+    "address": "emek ayalon 100 shoham"
+  }]

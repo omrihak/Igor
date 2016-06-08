@@ -1,0 +1,33 @@
+﻿body {
+    padding: 65px;
+}
+
+.message {
+    background-color:#efefef;
+    border: 1px solid black;
+    height:150px;
+    width: 225px;
+    margin-bottom: 20px;
+    border-width: initial;
+    border-style: double;
+}
+
+.messageHeader {
+    background-color: #FFA7FB;
+    font-size:14pt;
+    color:white;
+    padding:5px;
+    text-align: center;
+}
+
+.messageClose {
+    color: #EB0000;
+    font-weight:bold;
+    margin-right:5px;
+    line-height: 30px;
+    font-size: 24px;
+}
+
+.messageBody {
+    padding-left: 6px;
+}
