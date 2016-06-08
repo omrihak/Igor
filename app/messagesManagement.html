@@ -32,10 +32,14 @@
             <input ng-model="newMessage.text3" type="text" placeholder="Text3">
         </div>
         <div class="span3">
-            Pictures:select
+            Pictures:
             <br />
-            <input ng-model="newMessage.image1" type="text" placeholder="Image1">
-            <input ng-model="newMessage.image2" type="text" placeholder="Image2">
+			<select id="imageSelect1" ng-model="newMessage.image1">
+			  <option ng-repeat="image in images" value="{{image}}">{{image}}</option>
+			</select>
+			<select id="imageSelect2" ng-model="newMessage.image2">
+			  <option ng-repeat="image in images" value="{{image}}">{{image}}</option>
+			</select>
         </div>
         <div class="span3">
             Start Date:
@@ -47,9 +51,12 @@
             <input ng-model="newMessage.endDate" type="date" placeholder=" End Date">
         </div>
         <div class="span3">
-            Template: select
+            Template:
             <br />
-            <input ng-model="newMessage.template" type="" placeholder="Template">
+			<select  id="templateSelect1" ng-model="newMessage.template">
+			  <option ng-repeat="template in templates" value="{{template}}">{{template}}</option>
+			</select>
+           
         </div>
         <div class="span12">
             <br />
