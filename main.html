@@ -6,11 +6,67 @@
     <script src="libs/socket.io/socket.io.min.js"></script>
     <script type="text/javascript" src="libs/jquery/jquery.js"></script>
     <script type="text/javascript">
-
-        $(document).ready(function () {
-            var index = -1;
+	
+	var index = -1;
             var messages;
             var screen = window.location.href.split('=')[1];
+			
+			var canvas;
+			var ctx;
+			var canvasWidth = 60;
+			var canvasHeight = 60;
+
+			var circleR = 30;
+			var timeout = 0;
+			var often = 15;
+			function init(){
+				if (location.hash)
+					often = 5;
+				canvas = document.getElementById("canvas");
+				ctx = canvas.getContext("2d");
+				drawLines();
+			}
+
+			function drawLines() {
+				ctx.fillRect(0,0,canvasWidth,canvasHeight);
+				ctx.translate(canvasWidth/2,canvasHeight/2);
+				for (var i = 0; i < 25; i++) {
+					for (var a = -45; a <= 45; a+=often) {
+						setTimeout("drawTimeout("+a+");",100 * timeout);
+						timeout++;
+					}
+				}
+			}
+			function drawTimeout(a){
+				ctx.beginPath();
+				ctx.moveTo(0,circleR);
+				var radians = Math.PI/180*a;
+				var x = (circleR * Math.sin(radians)) / Math.sin(Math.PI/2 - radians);
+				ctx.lineTo(x,0);
+
+				if (Math.abs(a) == 45) {
+					ctx.strokeStyle="rgb(255,255,255)";
+					ctx.lineWidth=1;
+				} else if (a == 0) {
+					ctx.strokeStyle="rgb(200,200,200)";
+					ctx.lineWidth=0.5;
+				} else {
+					ctx.strokeStyle="rgb(110,110,110)";
+					ctx.lineWidth=0.2;
+				}
+				ctx.stroke();
+				ctx.rotate((Math.PI/180)*15);
+			}
+			function redirect(){
+				if (window.location.hash) window.location.href='';
+				else window.location.href='#more';
+				window.location.reload(true);
+			}
+
+        $(document).ready(function () {
+            
+			init();
+			
 
             $.getJSON( "http://localhost:8080/messages/screen=" + screen, function( messagesForScreen ) {
                 messages = messagesForScreen;
@@ -101,11 +157,57 @@
             });
         });
     </script>
+	
+	<style>
+h2 {
+    text-shadow: 2px 2px #FF0000;
+	font-family: myFirstFont;
+}
+.resize-div{
+	width: 250px;
+    height: 65px;
+    background: green;
+    -webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
+    transition: width 2s;
+	display: inline-block;
+	 vertical-align : top;
+	 border-radius: 25px;
+}
+.resize-div:hover{
+width: 400px;
+}
+
+@font-face {
+    font-family: myFirstFont;
+    src: url(sansation_light.woff);
+}
+
+.newspaper {
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+}
+</style>
 </head>
 
 <body>
-    <h2>Nofar and Carmel site</h2>
+<header>
+    <div class="resize-div">
+	<h2 style="display: inline-block; vertical-align : top;margin-left:15px;">  Nofar and Carmel site</h2>
+	</div>
+	<canvas id="canvas" width="60" height="60" style="display: inline-block; vertical-align : top;"></canvas>
+	<video  height="80"  controls style="display: inline-block;">
+  <source src="mov_bbb.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+	
+</header>
+
     <div id=result></div>
+
+<footer class="newspaper" style="bottom:0px;position:absolute">
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.
+</footer>
 </body>
 
 </html>
