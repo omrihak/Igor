@@ -77,9 +77,9 @@
                 <button class="btn close messageClose" ng-click="deleteMessage(message['id'])">&times;</button>
 				<button class="btn edit messageEdit" ng-click="editMessage(message['id'])">&#9998;</button>
                 <div class="messageHeader">{{message.name}}</div>
-                <div class="messageBody">{{message.template}}</div>
-                <div class="messageBody">{{message.screens.toString()}}</div>
-                <a href="#/message/{{customer.id}}" class="messageBody btn-link">View {{ customer.orders.length }} Orders</a>
+                <div class="messageBody">Id: {{message.id}}</div>
+                <div class="messageBody">Template: {{message.template}}</div>
+                <div class="messageBody">Screen: {{message.screen}}</div>
             </div>
         </div>
     </div>

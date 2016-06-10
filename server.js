@@ -7,29 +7,33 @@ var mongoClient = require('mongodb').MongoClient;
 var mongoUrl = 'mongodb://localhost:27017/advertisements';
 var mongoDB;
 var users = [];
+var messagesCollection;
 mongoClient.connect(mongoUrl, function(err, db) {
     if(err){
         console.log("Problem with connecting to mongodb. " + err);
     }else{
         mongoDB = db;
+        messagesCollection= db.collection('messages');
         console.log("Connected correctly to server.");
     }
 });
 
 app.use(express.static(__dirname));
+app.use(express.bodyParser());
+
 app.get("/screen=:screen", function(request, response) {
     response.sendfile(__dirname + "/main.html")
 });
 
 app.get("/messages/screen=:screen", function(request, response){
-    mongoDB.collection('messages').find({screens:parseInt(request.params.screen)}).toArray(function(err, messages) {
+    messagesCollection.find({screen:parseInt(request.params.screen)}).toArray(function(err, messages) {
         response.json(messages);
         response.end();
     });
 });
 
-app.get("/messages", function(request, response){
-    mongoDB.collection('messages').find().toArray(function(err, messages) {
+app.get("/messages", function(request, response) {
+    messagesCollection.find().toArray(function (err, messages) {
         response.json(messages);
         response.end();
     });
@@ -39,26 +43,50 @@ app.get("/manager", function(request, response){
     response.sendfile(__dirname + "/app/manager.html")
 });
 
-app.get("/TestUpdate", function(request, response){
-    var newMessage = {"name": "message 5","texts": ["hiiiiiiiiii"], "pictures": ["pictures/unicorn.jpg"],"template": "templates/templateB.html",
-        "duration": 1,"timeToShow": [{"startDate": "01/04/2016","endDate": "30/07/2016","daysInWeek": [2, 3, 4, 5],"startHour": "01:00","endHour": "23:00"
-        }],"screens":[parseInt(request.query.id)]};
+app.post("/messages", function(request, response){
+    var newMessage = request.body;
+    messagesCollection.find({}, {id: 1, _id: 0}).sort({id: -1}).limit(1).toArray(function (err, maxId) {
+        newMessage['id'] = maxId[0].id + 1;
 
-    mongoDB.collection('messages').insertOne(newMessage, function(err, result) {
-        if(err){
-            console.log("Problem add new message to mongodb. " + err);
-        }else{
-            console.log("Success add new message to mongodb");
-        }
-
-        for(var i = 0; i< users.length; i++){
-            if(users[i].screenId == parseInt(request.query.id)){
-                users[i].emit('newMessage',newMessage);
+        messagesCollection.insertOne(newMessage, function(err, result) {
+            if(err){
+                console.log("Problem add new message to mongodb. " + err);
+            }else{
+                console.log("Success add new message to mongodb");
             }
-        }
 
-        response.end();
+            for(var i = 0; i< users.length; i++){
+                if(users[i].screenId == parseInt(newMessage['screen'])){
+                    users[i].emit('newMessage',newMessage);
+                }
+            }
+
+            response.end();
+        });
     });
+});
+
+app.delete("/messages/:messageId", function(request, response){
+    var newMessage = request.body;
+
+    messagesCollection.find({id:parseInt(request.params.messageId)},{screen:1}).toArray(function(err, message) {
+        messagesCollection.deleteOne({id:parseInt(request.params.messageId)}, function(err, result) {
+            if(err){
+                console.log("Problem delete message from mongodb. " + err);
+            }else{
+                console.log("Success delete message from mongodb");
+            }
+
+            for(var i = 0; i< users.length; i++){
+                if(users[i].screenId == message[0]['screen']){
+                    console.log(message[0]['screen']);
+                    users[i].emit('deleteMessage', request.params.messageId);
+                }
+            }
+
+            response.end();
+        });
+    });;
 });
 
 io.sockets.on('connection', function (socket) {

@@ -1,7 +1,7 @@
 ﻿<html>
 <head>
     <title>
-        Nofar and Carmel site
+        Nofar Carmel and Omri site
     </title>
     <script src="libs/socket.io/socket.io.min.js"></script>
     <script type="text/javascript" src="libs/jquery/jquery.js"></script>
@@ -26,6 +26,9 @@
                     $.each(adToShow.pictures, function (pictureIndex, pictureRef) {
                         $("#image" + (pictureIndex + 1)).attr("src", pictureRef);
                     });
+
+                    $("#messageId").html("Id:" + adToShow.id);
+
                 });
             }
             
@@ -87,6 +90,14 @@
 
             socket.on('newMessage', function (newMessage) {
                 messages.push(newMessage);
+            });
+
+            socket.on('deleteMessage', function (messageId) {
+                $.each(messages, function (index, message) {
+                    if (message['id'] == messageId){
+                        messages.splice(index,1);
+                    }
+                });
             });
         });
     </script>

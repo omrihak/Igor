@@ -36,7 +36,7 @@
 	"duration": 3,
 	"timeToShow": [{
 		"startDate": "01/03/2016",
-		"endDate": "30/04/2016"
+		"endDate": "30/07/2016"
 	}],
 	"screen":1,
   "address":"hagalil 34 lapid"
@@ -60,12 +60,12 @@
 		"line 2"],
 	"pictures": [],
 	"template": "templates/templateA.html",
-	"duration": 3,
+	"duration": 2,
 	"timeToShow": [{
 		"startDate": "29/03/2016",
-		"endDate": "15/04/2016"
+		"endDate": "15/07/2016"
 	}],
-	"screen":1,
+	"screen":3,
   "address":"hamizpe 5 shoham"
 },
   {
@@ -83,7 +83,7 @@
     "timeToShow": [
       {
         "startDate": "01/04/2016",
-        "endDate": "30/04/2016"
+        "endDate": "30/07/2016"
       }
     ],
     "screen": 3,

@@ -38,42 +38,36 @@ app.controller('MessagesController', function ($scope, $location, messagesServic
             "duration": $scope.newMessage.duration,
             "timeToShow": [
                 {
-                    "startDate": $scope.newMessage.startDate,
-                    "endDate": $scope.newMessage.endDate
+                    "startDate": $scope.newMessage.startDate.toLocaleDateString('en-GB'),
+                    "endDate": $scope.newMessage.endDate.toLocaleDateString('en-GB')
                 }
             ],
-            "screen": $scope.newMessage.screen
-            ,
+            "screen": $scope.newMessage.screen,
             "address": $scope.newMessage.address
         };
-        $scope.messages.push(newMessage);
 
-        //messagesService.insertMessage(newMessage).success(function(response){
-        //    $scope.messages.push(newMessage);
-        //});
+        messagesService.insertMessage(newMessage).then(function(successResponse){
+			$scope.messages.push(newMessage);
+        }, function (errorResponse){
+			console.log('Error while insert to mongo db:' + errorResponse['data'])
+		});
     };
 
-    $scope.deleteMessage = function (id) {
-        //messagesService.deleteMessage(id).success(function(response){
-        //for (var i = 0 ; i < $scope.message.length; i++) {
-        //    if ($scope.message['id'] == id) {
-        //        $scope.message.splice(i, 1);
-        //        break;
-        //    }
-        //}
-        //});
-        for (var i = 0; i < $scope.messages.length; i++) {
-            if ($scope.messages[i]['id'] == id) {
-                $scope.messages.splice(i, 1);
-                break;
-            }
+    $scope.deleteMessage = function (messageId) {
+        messagesService.deleteMessage(messageId).then(function(successResponse){
+        for (var i = 0 ; i < $scope.messages.length; i++) {
+			    if ($scope.messages[i]['id'] == messageId) {
+			        $scope.messages.splice(i, 1);
+			        break;
+			    }
         }
+        }, function (errorResponse){
+			console.log('Error while delete from mongo db:' + errorResponse['data'])
+		});
     };
-	
 	
 	$scope.editMessage = function(id){
 		$location.path('/messages/'+id);
-		
 	};
 });
 

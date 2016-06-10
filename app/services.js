@@ -1,26 +1,16 @@
 ﻿
 app.service('messagesService', function ($http, $q) {
-    var baseUrl = "http://localhost:8080/";
+    var baseUrl = "http://localhost:8080/messages";
 	var messages = [];
 
 	initMessages();
 	
 	function initMessages(){
-		$http.get(baseUrl + 'messages').then(function(result){
+		$http.get(baseUrl).then(function(result){
 				result.data.forEach(function(message){
 					messages.push(message);
 				});
 			});
-			
-		// var defer = $q.defer();
-
-			// $http.get(baseUrl + 'messages').then(function(result){
-				// defer.resolve(result.data);
-			// });
-
-			// defer.promise.then(function (result) {
-				// messages = result;
-			// });
 	};
 	
 	
@@ -29,11 +19,11 @@ app.service('messagesService', function ($http, $q) {
     };
 
     this.insertMessage = function (newMessage) {
-        // insert to mongo db
+		return $http.post(baseUrl, newMessage);
     };
     //
-    this.deleteMessage = function (id) {
-        // delete from mongo db
+    this.deleteMessage = function (messageId) {
+		return $http.delete(baseUrl + '/' + messageId);
     };
 
     //this.getCustomer = function (id) {
