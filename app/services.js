@@ -10,11 +10,6 @@ app.service('messagesService', function ($http, $q) {
 		$http.get(baseUrl).then(function(result){
 				result.data.forEach(function(message){
 					messages.push(message);
-					if(messagesById[message.id])
-					{
-						for(var k in message) messagesById[message.id][k]=message[k];
-					}
-					messagesById[message.id] = message;
 				});
 			});
 	};
@@ -25,32 +20,7 @@ app.service('messagesService', function ($http, $q) {
     };
 
 	this.getMessageById = function (messageId) {
-		// console.log(messages);
-		// angular.forEach(messages, function(message){
-			// console.log(message.id);
-
-			// if(message.id == messageId){
-				// return message;
-			// }
-		// });
-		if(!(messageId in messagesById))
-		{
-			 messagesById[messageId] = {};
-		}
-		
-		return messagesById[messageId]
-
-		//messages.forEach(function(message){
-		//	console.log(message.id);
-        //
-		//	if(message.id == messageId)
-		//	{
-		//		console.log(12121);
-		//		console.log(message);
-        //
-		//		return message;
-		//	}
-		//});
+		return $http.get(baseUrl + '/' + messageId);
 	};
 
     this.insertMessage = function (newMessage) {
@@ -61,13 +31,7 @@ app.service('messagesService', function ($http, $q) {
 		return $http.delete(baseUrl + '/' + messageId);
     };
 
-    //this.getCustomer = function (id) {
-    //    for (var i = 0; i < customers.length; i++) {
-    //        if (customers[i].id === id) {
-    //            return customers[i];
-    //        }
-    //    }
-    //    return null;
-    //};
-
+	this.updateMessage = function (messageId, updatedMessage) {
+		return $http.put(baseUrl+ '/' + messageId, updatedMessage);
+	};
 });

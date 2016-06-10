@@ -7,10 +7,10 @@
 	"pictures": ["pictures/adele1.jpg", "pictures/adele2.jpg"],
 	"template": "templates/templateA.html",
 	"duration": 2,
-	"timeToShow": [{
+	"timeToShow": {
 		"startDate": "01/01/2016",
 		"endDate": "31/12/2016"
-	}],
+	},
 	"screen": 2,
     "address":"yasmin 56 shoham"
 },{
@@ -21,10 +21,10 @@
 	"pictures": ["pictures/adele1.jpg", "pictures/adele2.jpg"],
 	"template": "templates/templateA.html",
 	"duration": 2,
-	"timeToShow": [{
+	"timeToShow": {
 		"startDate": "01/01/2016",
 		"endDate": "31/12/2016"
-	}],
+	},
 	"screen":1,
     "address":"karlom 3 modiin"
 }, {
@@ -34,10 +34,10 @@
 	"pictures": ["pictures/helloWorld.jpg"],
 	"template": "templates/templateB.html",
 	"duration": 3,
-	"timeToShow": [{
+	"timeToShow": {
 		"startDate": "01/03/2016",
 		"endDate": "30/07/2016"
-	}],
+	},
 	"screen":1,
   "address":"hagalil 34 lapid"
 }, {
@@ -47,10 +47,10 @@
 	"pictures": [],
 	"template": "templates/templateC.html",
 	"duration": 2,
-	"timeToShow": [{
+	"timeToShow": {
 		"startDate": "01/05/2016",
 		"endDate": "15/06/2016"
-	}],
+	},
 	"screen":2,
   "address":"bosmat 50 shoham"
 }, {
@@ -61,31 +61,29 @@
 	"pictures": [],
 	"template": "templates/templateA.html",
 	"duration": 2,
-	"timeToShow": [{
+	"timeToShow": {
 		"startDate": "29/03/2016",
 		"endDate": "15/07/2016"
-	}],
+	},
 	"screen":3,
   "address":"hamizpe 5 shoham"
 },
   {
-    "id": 6,
-    "name": "message 5",
-    "texts": [
-      "nofar1"
-    ],
-    "pictures": [
-      "pictures/rainbow.jpg",
-      "pictures/unicorn.jpg"
-    ],
-    "template": "templates/templateB.html",
-    "duration": 1,
-    "timeToShow": [
-      {
-        "startDate": "01/04/2016",
-        "endDate": "30/07/2016"
-      }
-    ],
-    "screen": 3,
-    "address": "emek ayalon 100 shoham"
+	"id": 6,
+	"name": "message 5",
+	"texts": [
+	  "nofar1"
+	],
+	"pictures": [
+	  "pictures/rainbow.jpg",
+	  "pictures/unicorn.jpg"
+	],
+	"template": "templates/templateB.html",
+	"duration": 1,
+	"timeToShow": {
+	  "startDate": "01/04/2016",
+	  "endDate": "30/07/2016"
+	},
+	"screen": 3,
+	"address": "emek ayalon 100 shoham"
   }]

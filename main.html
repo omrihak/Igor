@@ -87,7 +87,7 @@
 
                 });
             }
-            
+
             function convertStringToDate(dateString) {
                 if (dateString == '')
                     return null;
@@ -102,15 +102,13 @@
                 var isItTime = false;
                 var today = new Date();
 
-                $.each(timesToShow, function (index, message) {
-                    var startDate = convertStringToDate(message.startDate);
-                    var endDate = convertStringToDate(message.endDate);
+                var startDate = convertStringToDate(timesToShow.startDate);
+                var endDate = convertStringToDate(timesToShow.endDate);
 
-                    if (today >= startDate &&
-                        today <= endDate) {
-                        isItTime = true;
-                    }
-                });
+                if (today >= startDate &&
+                    today <= endDate) {
+                    isItTime = true;
+                }
 
                 return isItTime;
             }
@@ -146,6 +144,16 @@
 
             socket.on('newMessage', function (newMessage) {
                 messages.push(newMessage);
+            });
+
+            socket.on('updateMessage', function (updatedMessage) {
+                $.each(messages, function (index, message) {
+                    if (message['id'] == updatedMessage['id']){
+                        messages.splice(index,1);
+                        messages.push(updatedMessage);
+
+                    }
+                });
             });
 
             socket.on('deleteMessage', function (messageId) {
