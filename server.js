@@ -25,7 +25,7 @@ app.get("/screen=:screen", function(request, response) {
 });
 
 app.get("/manager", function(request, response){
-    response.sendfile(__dirname + "/app/manager.html")
+    response.sendfile(__dirname + "/managerApp/manager.html")
 });
 
 app.get("/messages/screen=:screen", function(request, response){

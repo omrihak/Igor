@@ -6,12 +6,12 @@ app.config(function ($routeProvider) {
         .when('/messages',
             {
                 controller: 'MessagesController as controller',
-                templateUrl: 'app/messagesManagement.html'
+                templateUrl: 'managerApp/messagesManagement.html'
             })
 			.when('/messages/:id',
             {
                 controller: 'EditMessageController as controller',
-                templateUrl: 'app/editMessageManagement.html'
+                templateUrl: 'managerApp/editMessageManagement.html'
             });
 });
 
