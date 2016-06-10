@@ -3,16 +3,15 @@ var app = express();
 var http = require('http');
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
-var mongoClient = require('mongodb').MongoClient;
+var mongoDB = require('mongodb');
+var mongoClient = mongoDB.MongoClient;
 var mongoUrl = 'mongodb://localhost:27017/advertisements';
-var mongoDB;
 var users = [];
 var messagesCollection;
 mongoClient.connect(mongoUrl, function(err, db) {
     if(err){
         console.log("Problem with connecting to mongodb. " + err);
     }else{
-        mongoDB = db;
         messagesCollection= db.collection('messages');
         console.log("Connected correctly to server.");
     }
@@ -43,6 +42,19 @@ app.get("/messages", function(request, response) {
     });
 });
 
+
+app.get("/messages/:messageId", function(request, response) {
+    messagesCollection.find({id: parseInt(request.params.messageId)}).toArray(function (err, message) {
+        if (err) {
+            console.log("Problem get message from mongodb: " + err);
+        } else {
+            console.log("Success get message from mongodb");
+        }
+        response.json(message);
+        response.end();
+    });
+});
+
 app.post("/messages", function(request, response){
     var newMessage = request.body;
     messagesCollection.find({}, {id: 1, _id: 0}).sort({id: -1}).limit(1).toArray(function (err, maxId) {
@@ -66,9 +78,12 @@ app.post("/messages", function(request, response){
     });
 });
 
-app.put("/messages", function(request, response) {
+app.put("/messages/:messageId", function(request, response) {
     var updatedMessage = request.body;
-    messagesCollection.updateOne({id: updateMessage['id']}, updatedMessage, function(err, result) {
+
+    updatedMessage._id = mongoDB.ObjectID.createFromHexString(updatedMessage._id);
+
+    messagesCollection.updateOne({id:parseInt(request.params.messageId)}, updatedMessage, function(err, result) {
         console.log("update result:. " + result);
 
         if (err) {
@@ -78,7 +93,7 @@ app.put("/messages", function(request, response) {
         }
 
         for (var i = 0; i < users.length; i++) {
-            if (users[i].screenId == parseInt(updatedMessage['screen'])) {
+            if (users[i].screenId == updatedMessage.screen) {
                 users[i].emit('updateMessage', updatedMessage);
             }
         }
@@ -86,7 +101,6 @@ app.put("/messages", function(request, response) {
         response.end();
     })
 });
-
 
 app.delete("/messages/:messageId", function(request, response){
     var newMessage = request.body;
