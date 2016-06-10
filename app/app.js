@@ -28,6 +28,26 @@ app.config(function ($routeProvider) {
         //.otherwise({ redirectTo: '/customers' });
 });
 
+app.value('images',[
+    'pictures/adele1.jpg',
+    'pictures/adele2.jpg',
+    'pictures/blue_pony.jpg',
+    'pictures/dino_heart.jpg',
+    'pictures/helloWorld.jpg',
+    'pictures/Igor_1.jpg',
+    'pictures/Igor_2.jpg',
+    'pictures/pink_pony.jpg',
+    'pictures/rainbow.jpg',
+    'pictures/unicorn.jpg'
+
+]);
+
+app.value('templates',[
+    'templates/templateA.html',
+    'templates/templateB.html',
+    'templates/templateC.html'
+]);
+
 
 
 

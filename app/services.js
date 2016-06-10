@@ -18,6 +18,29 @@ app.service('messagesService', function ($http, $q) {
 		return messages;
     };
 
+	this.getMessageById = function (messageId) {
+		console.log(messages);
+		angular.forEach(messages, function(message){
+			console.log(message.id);
+
+			if(message.id == messageId){
+				return message;
+			}
+		});
+
+		//messages.forEach(function(message){
+		//	console.log(message.id);
+        //
+		//	if(message.id == messageId)
+		//	{
+		//		console.log(12121);
+		//		console.log(message);
+        //
+		//		return message;
+		//	}
+		//});
+	};
+
     this.insertMessage = function (newMessage) {
 		return $http.post(baseUrl, newMessage);
     };

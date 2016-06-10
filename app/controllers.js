@@ -1,30 +1,14 @@
 ﻿
-app.controller('MessagesController', function ($scope, $location, messagesService) {
+app.controller('MessagesController', function ($scope, $location, messagesService, images, templates) {
     getAllMessages();
 
     function getAllMessages() {
         $scope.messages = messagesService.getMessages();
     }
 	
-	$scope.images = [
-		'pictures/adele1.jpg',
-		'pictures/adele2.jpg',
-		'pictures/blue_pony.jpg',
-		'pictures/dino_heart.jpg',
-		'pictures/helloWorld.jpg',
-		'pictures/Igor_1.jpg',
-		'pictures/Igor_2.jpg',
-		'pictures/pink_pony.jpg',
-		'pictures/rainbow.jpg',
-		'pictures/unicorn.jpg'
-		
-	];
+	$scope.images = images;
 	
-	$scope.templates = [
-	'templates/templateA.html',
-	'templates/templateB.html',
-	'templates/templateC.html'
-	];
+	$scope.templates = templates;
 
     $scope.insertMessage = function () {
         var newMessage = {
@@ -66,43 +50,30 @@ app.controller('MessagesController', function ($scope, $location, messagesServic
 		});
     };
 	
-	$scope.editMessage = function(id){
-		$location.path('/messages/'+id);
-	};
+	//$scope.editMessage = function(id){
+	//	$location.path('/messages/'+id);
+	//};
 });
 
 
 
-app.controller('EditMessageController', function ($scope, $routeParams, messagesService) {
+app.controller('EditMessageController', function ($scope, $routeParams, messagesService, images, templates) {
 	getMessage();
-	
-	$scope.images = [
-		'pictures/adele1.jpg',
-		'pictures/adele2.jpg',
-		'pictures/blue_pony.jpg',
-		'pictures/dino_heart.jpg',
-		'pictures/helloWorld.jpg',
-		'pictures/Igor_1.jpg',
-		'pictures/Igor_2.jpg',
-		'pictures/pink_pony.jpg',
-		'pictures/rainbow.jpg',
-		'pictures/unicorn.jpg'
-		
-	];
-	
-	$scope.templates = [
-	'templates/templateA.html',
-	'templates/templateB.html',
-	'templates/templateC.html'
-	];
+
+	$scope.images = images;
+
+	$scope.templates = templates;
 
     function getMessage() {
-        messagesService.getMessages().forEach(function(message){
-			if(message.id == $routeParams.id)
-			{
-				$scope.message = message;
-			}
-		});
+		$scope.message = messagesService.getMessageById($routeParams.id);
+		console.log($scope.message);
+
+        //messagesService.getMessages().forEach(function(message){
+		//	if(message.id == $routeParams.id)
+		//	{
+		//		$scope.message = message;
+		//	}
+		//});
     }
 });
 

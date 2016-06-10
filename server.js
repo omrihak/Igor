@@ -25,6 +25,10 @@ app.get("/screen=:screen", function(request, response) {
     response.sendfile(__dirname + "/main.html")
 });
 
+app.get("/manager", function(request, response){
+    response.sendfile(__dirname + "/app/manager.html")
+});
+
 app.get("/messages/screen=:screen", function(request, response){
     messagesCollection.find({screen:parseInt(request.params.screen)}).toArray(function(err, messages) {
         response.json(messages);
@@ -39,10 +43,6 @@ app.get("/messages", function(request, response) {
     });
 });
 
-app.get("/manager", function(request, response){
-    response.sendfile(__dirname + "/app/manager.html")
-});
-
 app.post("/messages", function(request, response){
     var newMessage = request.body;
     messagesCollection.find({}, {id: 1, _id: 0}).sort({id: -1}).limit(1).toArray(function (err, maxId) {
@@ -50,7 +50,7 @@ app.post("/messages", function(request, response){
 
         messagesCollection.insertOne(newMessage, function(err, result) {
             if(err){
-                console.log("Problem add new message to mongodb. " + err);
+                console.log("Problem add new message to mongodb: " + err);
             }else{
                 console.log("Success add new message to mongodb");
             }
@@ -66,13 +66,35 @@ app.post("/messages", function(request, response){
     });
 });
 
+app.put("/messages", function(request, response) {
+    var updatedMessage = request.body;
+    messagesCollection.updateOne({id: updateMessage['id']}, updatedMessage, function(err, result) {
+        console.log("update result:. " + result);
+
+        if (err) {
+            console.log("Problem update message in mongodb: " + err);
+        } else {
+            console.log("Success update message in mongodb");
+        }
+
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].screenId == parseInt(updatedMessage['screen'])) {
+                users[i].emit('updateMessage', updatedMessage);
+            }
+        }
+
+        response.end();
+    })
+});
+
+
 app.delete("/messages/:messageId", function(request, response){
     var newMessage = request.body;
 
     messagesCollection.find({id:parseInt(request.params.messageId)},{screen:1}).toArray(function(err, message) {
         messagesCollection.deleteOne({id:parseInt(request.params.messageId)}, function(err, result) {
             if(err){
-                console.log("Problem delete message from mongodb. " + err);
+                console.log("Problem delete message from mongodb: " + err);
             }else{
                 console.log("Success delete message from mongodb");
             }
@@ -86,7 +108,7 @@ app.delete("/messages/:messageId", function(request, response){
 
             response.end();
         });
-    });;
+    });
 });
 
 io.sockets.on('connection', function (socket) {
