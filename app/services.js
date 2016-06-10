@@ -2,6 +2,7 @@
 app.service('messagesService', function ($http, $q) {
     var baseUrl = "http://localhost:8080/messages";
 	var messages = [];
+	var messagesById = {};
 
 	initMessages();
 	
@@ -9,6 +10,11 @@ app.service('messagesService', function ($http, $q) {
 		$http.get(baseUrl).then(function(result){
 				result.data.forEach(function(message){
 					messages.push(message);
+					if(messagesById[message.id])
+					{
+						for(var k in message) messagesById[message.id][k]=message[k];
+					}
+					messagesById[message.id] = message;
 				});
 			});
 	};
@@ -19,14 +25,20 @@ app.service('messagesService', function ($http, $q) {
     };
 
 	this.getMessageById = function (messageId) {
-		console.log(messages);
-		angular.forEach(messages, function(message){
-			console.log(message.id);
+		// console.log(messages);
+		// angular.forEach(messages, function(message){
+			// console.log(message.id);
 
-			if(message.id == messageId){
-				return message;
-			}
-		});
+			// if(message.id == messageId){
+				// return message;
+			// }
+		// });
+		if(!(messageId in messagesById))
+		{
+			 messagesById[messageId] = {};
+		}
+		
+		return messagesById[messageId]
 
 		//messages.forEach(function(message){
 		//	console.log(message.id);
