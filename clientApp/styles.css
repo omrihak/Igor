@@ -18,40 +18,11 @@ h2 {
 
 @font-face {
     font-family: myFirstFont;
-    src: url(sansation_light.woff);
+    src: url(Sansation_Light.woff);
 }
 
 .newspaper {
     -webkit-column-count: 3; /* Chrome, Safari, Opera */
     -moz-column-count: 3; /* Firefox */
     column-count: 3;
-}
-
-.slide-animate {
-    padding:10px;
-}
-
-.slide-animate.ng-enter, .slide-animate.ng-leave {
-    transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    display:block;
-    padding:10px;
-}
-
-.slide-animate.ng-enter {
-    top:-50px;
-}
-.slide-animate.ng-enter.ng-enter-active {
-    top:0;
-}
-
-.slide-animate.ng-leave {
-    top:0;
-}
-.slide-animate.ng-leave.ng-leave-active {
-    top:50px;
 }
