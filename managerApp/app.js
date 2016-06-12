@@ -16,23 +16,23 @@ app.config(function ($routeProvider) {
 });
 
 app.value('images',[
-    'pictures/adele1.jpg',
-    'pictures/adele2.jpg',
-    'pictures/blue_pony.jpg',
-    'pictures/dino_heart.jpg',
-    'pictures/helloWorld.jpg',
-    'pictures/Igor_1.jpg',
-    'pictures/Igor_2.jpg',
-    'pictures/pink_pony.jpg',
-    'pictures/rainbow.jpg',
-    'pictures/unicorn.jpg'
+    'clientApp/pictures/adele1.jpg',
+    'clientApp/pictures/adele2.jpg',
+    'clientApp/pictures/blue_pony.jpg',
+    'clientApp/pictures/dino_heart.jpg',
+    'clientApp/pictures/helloWorld.jpg',
+    'clientApp/pictures/Igor_1.jpg',
+    'clientApp/pictures/Igor_2.jpg',
+    'clientApp/pictures/pink_pony.jpg',
+    'clientApp/pictures/rainbow.jpg',
+    'clientApp/pictures/unicorn.jpg'
 
 ]);
 
 app.value('templates',[
-    'templates/templateA.html',
-    'templates/templateB.html',
-    'templates/templateC.html'
+    'clientApp/templates/templateA.html',
+    'clientApp/templates/templateB.html',
+    'clientApp/templates/templateC.html'
 ]);
 
 

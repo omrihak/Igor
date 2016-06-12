@@ -2,7 +2,6 @@
 app.service('messagesService', function ($http, $q) {
     var baseUrl = "http://localhost:8080/messages";
 	var messages = [];
-	var messagesById = {};
 
 	initMessages();
 	

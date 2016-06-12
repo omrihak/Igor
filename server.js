@@ -21,7 +21,7 @@ app.use(express.static(__dirname));
 app.use(express.bodyParser());
 
 app.get("/screen=:screen", function(request, response) {
-    response.sendfile(__dirname + "/main.html")
+    response.sendfile(__dirname + "/clientApp/main.html")
 });
 
 app.get("/manager", function(request, response){

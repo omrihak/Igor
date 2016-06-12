@@ -4,8 +4,8 @@
 	"texts": ["Hello, it's me",
 		"I was wondering if after all these years you'd like to meet",
 		"To go over everything"],
-	"pictures": ["pictures/adele1.jpg", "pictures/adele2.jpg"],
-	"template": "templates/templateA.html",
+	"pictures": ["clientApp/pictures/adele1.jpg", "clientApp/pictures/adele2.jpg"],
+	"template": "clientApp/templates/templateB.html",
 	"duration": 2,
 	"timeToShow": {
 		"startDate": "01/01/2016",
@@ -18,8 +18,8 @@
 	"name": "message 1",
 	"texts": ["Hello, it's me",
 		"I was wondering if after all these years you'd like to meet"],
-	"pictures": ["pictures/adele1.jpg", "pictures/adele2.jpg"],
-	"template": "templates/templateA.html",
+	"pictures": ["clientApp/pictures/adele1.jpg", "clientApp/pictures/adele2.jpg"],
+	"template": "clientApp/templates/templateA.html",
 	"duration": 2,
 	"timeToShow": {
 		"startDate": "01/01/2016",
@@ -31,8 +31,8 @@
   "id":3,
 	"name": "message 2",
 	"texts": ["a", "b"],
-	"pictures": ["pictures/helloWorld.jpg"],
-	"template": "templates/templateB.html",
+	"pictures": ["clientApp/pictures/helloWorld.jpg"],
+	"template": "clientApp/templates/templateB.html",
 	"duration": 3,
 	"timeToShow": {
 		"startDate": "01/03/2016",
@@ -45,7 +45,7 @@
 	"name": "message 3",
 	"texts": [],
 	"pictures": [],
-	"template": "templates/templateC.html",
+	"template": "clientApp/templates/templateC.html",
 	"duration": 2,
 	"timeToShow": {
 		"startDate": "01/05/2016",
@@ -59,7 +59,7 @@
 	"texts": ["line 1",
 		"line 2"],
 	"pictures": [],
-	"template": "templates/templateA.html",
+	"template": "clientApp/templates/templateA.html",
 	"duration": 2,
 	"timeToShow": {
 		"startDate": "29/03/2016",
@@ -75,10 +75,10 @@
 	  "nofar1"
 	],
 	"pictures": [
-	  "pictures/rainbow.jpg",
-	  "pictures/unicorn.jpg"
+	  "clientApp/pictures/rainbow.jpg",
+	  "clientApp/pictures/unicorn.jpg"
 	],
-	"template": "templates/templateB.html",
+	"template": "clientApp/templates/templateB.html",
 	"duration": 1,
 	"timeToShow": {
 	  "startDate": "01/04/2016",

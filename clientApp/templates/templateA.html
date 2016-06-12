@@ -1,0 +1,21 @@
+﻿<h1>TEMPLATE A</h1>
+<style>
+    body {
+        background-color: #ffb3b3;
+    }
+
+    h1 {
+        color: blue;
+    }
+
+    p {
+        color: yellow;
+    }
+</style>
+<span id="messageId">{{messageToDisplay.id}}</span>
+<p id="line1">{{messageToDisplay.texts[0]}}</p>
+<p id="line2">{{messageToDisplay.texts[1]}}</p>
+<p id="line3">{{messageToDisplay.texts[2]}}</p>
+
+<img id="image1" ng-src="{{messageToDisplay.pictures[0]}}"/>
+<img id="image2"  ng-src="{{messageToDisplay.pictures[1]}}"/>
