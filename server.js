@@ -126,6 +126,21 @@ app.delete("/messages/:messageId", function(request, response){
     });
 });
 
+app.get('/amountMessagesPerScreen', function(request, response) {
+    messagesCollection.aggregate([
+        {"$group": {_id: "$screen", count: {$sum: 1}}}
+    ]).toArray(function (err, message) {
+        if(err){
+            response.write(err);
+            response.end();
+        }else{
+            console.log(message);
+            response.json(message);
+            response.end();
+        }
+    });
+});
+
 io.sockets.on('connection', function (socket) {
     socket.on('addUser', function(screenId){
         socket.screenId = screenId;
