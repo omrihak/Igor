@@ -30,6 +30,7 @@ app.controller('MessagesController', function ($scope, $location, messagesServic
         };
 
         messagesService.insertMessage(newMessage).then(function (successResponse) {
+            newMessage.id = successResponse.data;
             $scope.messages.push(newMessage);
         }, function (errorResponse) {
             console.log('Error while insert to mongo db:' + errorResponse['data'])

@@ -62,4 +62,32 @@ clientApp.controller('SwitchingMessagesController', function($routeParams, $http
 
         return parsedDate;
     }
+
+    var socket = io.connect('http://localhost:8081');
+
+    socket.on('connect', function () {
+        socket.emit('addUser', screen);
+    });
+
+    socket.on('newMessage', function (newMessage) {
+        $scope.messages.push(newMessage);
+    });
+
+    socket.on('updateMessage', function (updatedMessage) {
+        $.each($scope.messages, function (index, message) {
+            if (message['id'] == updatedMessage['id']) {
+                $scope.messages.splice(index, 1);
+                $scope.messages.push(updatedMessage);
+
+            }
+        });
+    });
+
+    socket.on('deleteMessage', function (messageId) {
+        $.each($scope.messages, function (index, message) {
+            if (message['id'] == messageId) {
+                $scope.messages.splice(index, 1);
+            }
+        });
+    });
 });

@@ -42,7 +42,6 @@ app.get("/messages", function(request, response) {
     });
 });
 
-
 app.get("/messages/:messageId", function(request, response) {
     messagesCollection.find({id: parseInt(request.params.messageId)}).toArray(function (err, message) {
         if (err) {
@@ -58,7 +57,8 @@ app.get("/messages/:messageId", function(request, response) {
 app.post("/messages", function(request, response){
     var newMessage = request.body;
     messagesCollection.find({}, {id: 1, _id: 0}).sort({id: -1}).limit(1).toArray(function (err, maxId) {
-        newMessage['id'] = maxId[0].id + 1;
+        var newId = maxId[0].id + 1;
+        newMessage['id'] = newId;
 
         messagesCollection.insertOne(newMessage, function(err, result) {
             if(err){
@@ -73,6 +73,7 @@ app.post("/messages", function(request, response){
                 }
             }
 
+            response.write(newId.toString());
             response.end();
         });
     });
