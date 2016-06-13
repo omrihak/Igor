@@ -17,6 +17,10 @@ app.service('messagesService', function ($http, $q) {
     this.getMessages = function () {
 		return messages;
     };
+	
+	this.getMessagesPromise = function () {
+		return $http.get(baseUrl);
+    };
 
 	this.getMessageById = function (messageId) {
 		return $http.get(baseUrl + '/' + messageId);
