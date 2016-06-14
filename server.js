@@ -83,6 +83,69 @@ app.post("/messages", function(request, response){
     });
 });
 
+app.post("/messagesFilter1", function(request, response) {
+	
+	var filterData = {};
+	
+	if(request.body.duration && parseInt(request.body.duration))
+	{
+		filterData.duration = { $gt: parseInt(request.body.duration)};
+	}
+	
+	if(request.body.name)
+	{
+		filterData.name = {$regex : ".*" + request.body.name+ ".*"};
+	}
+	
+	if(request.body.screen && parseInt(request.body.screen))
+	{
+		filterData.screen = parseInt(request.body.screen);
+	}
+	
+	console.log(filterData);
+		
+    messagesCollection.find(filterData).toArray(function (err, message) {
+        if (err) {
+            console.log("Problem get messages from mongodb: " + err);
+        } else {
+            console.log("Success get messages from mongodb");
+        }
+        response.json(message);
+        response.end();
+    });
+});
+
+
+app.post("/messagesFilter2", function(request, response) {
+	
+	var filterData = {};
+	
+	if(request.body.texts && parseInt(request.body.texts))
+	{
+		filterData.texts = { $size: parseInt(request.body.texts)};
+	}
+	
+	if(request.body.pictures && parseInt(request.body.pictures))
+	{
+		filterData.pictures = { $size: parseInt(request.body.pictures)};
+	}
+	
+	if(request.body.address && request.body.address)
+	{
+		filterData.address = {$regex : ".*" + request.body.address+ ".*"};
+	}
+	
+    messagesCollection.find(filterData).toArray(function (err, message) {
+        if (err) {
+            console.log("Problem get messages from mongodb: " + err);
+        } else {
+            console.log("Success get messages from mongodb");
+        }
+        response.json(message);
+        response.end();
+    });
+});
+
 app.put("/messages/:messageId", function(request, response) {
     var updatedMessage = request.body;
 
