@@ -83,15 +83,16 @@ app.controller('EditMessageController', function ($scope, $routeParams, messages
                $scope.message = result.data[0];
                $scope.startDate = parseDMY($scope.message.timeToShow.startDate);
                $scope.endDate = parseDMY($scope.message.timeToShow.endDate);
+               getMap();
            }
         });
     }
 
     $scope.updateMessage = function() {
-        var a = $scope.message;
-        a.timeToShow.startDate = $scope.startDate.toLocaleDateString('en-GB');
-        a.timeToShow.endDate = $scope.endDate.toLocaleDateString('en-GB');
-        messagesService.updateMessage($scope.message.id, a);
+        $scope.message.timeToShow.startDate = $scope.startDate.toLocaleDateString('en-GB');
+        $scope.message.timeToShow.endDate = $scope.endDate.toLocaleDateString('en-GB');
+        messagesService.updateMessage($scope.message.id, $scope.message);
+        getMap();
     };
 
     function parseDMY(value) {
@@ -100,6 +101,35 @@ app.controller('EditMessageController', function ($scope, $routeParams, messages
             m = parseInt(date[1], 10),
             y = parseInt(date[2], 10);
         return new Date(y, m - 1, d);
+    }
+
+    function getMap() {
+        console.log(1);
+        var mapOptions = {zoom: 12, mapTypeId: google.maps.MapTypeId.ROADMAP };
+
+        var map = new google.maps.Map(document.getElementById("MapCanvas"), mapOptions);
+
+        setMarkers(map);
+    };
+
+    function setMarkers(map) {
+        var geocoder = new google.maps.Geocoder();
+
+        geocoder.geocode({ 'address': $scope.message.address }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+
+                var marker = new google.maps.Marker({
+                    position: results[0].geometry.location,
+                    map: map,
+                    title: $scope.message.name,
+                    zIndex: 0
+                });
+
+            } else {
+                alert("Geocode was not successful for the following reason: " + status);
+            }
+        });
     }
 });
 
