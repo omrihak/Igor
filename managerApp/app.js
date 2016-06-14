@@ -3,12 +3,12 @@ var app = angular.module('managerApp', ['ngRoute']);
 
 app.config(function ($routeProvider) {
     $routeProvider
-        .when('/messages',
+        .when('/',
             {
                 controller: 'MessagesController as controller',
                 templateUrl: 'managerApp/messagesManagement.html'
             })
-			.when('/messages/:id',
+			.when('/:id',
             {
                 controller: 'EditMessageController as controller',
                 templateUrl: 'managerApp/editMessageManagement.html'

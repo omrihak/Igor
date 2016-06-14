@@ -28,6 +28,10 @@ app.get("/manager", function(request, response){
     response.sendfile(__dirname + "/managerApp/manager.html")
 });
 
+app.get("/graphs", function(request, response){
+    response.sendfile(__dirname + "/d3App/graphs.html")
+});
+
 app.get("/messages/screen=:screen", function(request, response){
     messagesCollection.find({screen:parseInt(request.params.screen)}).toArray(function(err, messages) {
         response.json(messages);
