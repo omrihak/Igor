@@ -8,7 +8,7 @@ app.controller('MessagesController', function ($scope, $location, messagesServic
 
     function getAllMessages() {
         $scope.messages = messagesService.getMessages();
-    }
+    } 
 
     $scope.insertMessage = function () {
         var newMessage = {
