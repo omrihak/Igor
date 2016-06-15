@@ -1,4 +1,4 @@
-var clientApp = angular.module('clientApp', ['ngRoute']);
+var clientApp = angular.module('clientApp', []);
 
 
 

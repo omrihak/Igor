@@ -1,4 +1,4 @@
-clientApp.controller('SwitchingMessagesController', function($routeParams, $http, $scope, $location){
+clientApp.controller('SwitchingMessagesController', function($http, $scope, $location){
     var index = -1;
     $scope.messages = [];
     $scope.messageToDisplay = {};
