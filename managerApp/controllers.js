@@ -104,7 +104,6 @@ app.controller('EditMessageController', function ($scope, $routeParams, messages
     }
 
     function getMap() {
-        console.log(1);
         var mapOptions = {zoom: 12, mapTypeId: google.maps.MapTypeId.ROADMAP};
 
         var map = new google.maps.Map(angular.element(document.querySelector('#MapCanvas'))[0], mapOptions);
