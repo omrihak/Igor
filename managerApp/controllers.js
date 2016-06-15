@@ -76,19 +76,19 @@ app.controller('EditMessageController', function ($scope, $routeParams, messages
     getMessage();
 
     function getMessage() {
-        messagesService.getMessageById($routeParams.id).then(function(result){
-           if(result.data.length == 0){
-               alert('There is no message with id' + $routeParams.id);
-           }else{
-               $scope.message = result.data[0];
-               $scope.startDate = parseDMY($scope.message.timeToShow.startDate);
-               $scope.endDate = parseDMY($scope.message.timeToShow.endDate);
-               getMap();
-           }
+        messagesService.getMessageById($routeParams.id).then(function (result) {
+            if (result.data.length == 0) {
+                alert('There is no message with id' + $routeParams.id);
+            } else {
+                $scope.message = result.data[0];
+                $scope.startDate = parseDMY($scope.message.timeToShow.startDate);
+                $scope.endDate = parseDMY($scope.message.timeToShow.endDate);
+                getMap();
+            }
         });
     }
 
-    $scope.updateMessage = function() {
+    $scope.updateMessage = function () {
         $scope.message.timeToShow.startDate = $scope.startDate.toLocaleDateString('en-GB');
         $scope.message.timeToShow.endDate = $scope.endDate.toLocaleDateString('en-GB');
         messagesService.updateMessage($scope.message.id, $scope.message);
@@ -105,9 +105,9 @@ app.controller('EditMessageController', function ($scope, $routeParams, messages
 
     function getMap() {
         console.log(1);
-        var mapOptions = {zoom: 12, mapTypeId: google.maps.MapTypeId.ROADMAP };
+        var mapOptions = {zoom: 12, mapTypeId: google.maps.MapTypeId.ROADMAP};
 
-        var map = new google.maps.Map(document.getElementById("MapCanvas"), mapOptions);
+        var map = new google.maps.Map(angular.element(document.querySelector('#MapCanvas'))[0], mapOptions);
 
         setMarkers(map);
     };
@@ -115,7 +115,7 @@ app.controller('EditMessageController', function ($scope, $routeParams, messages
     function setMarkers(map) {
         var geocoder = new google.maps.Geocoder();
 
-        geocoder.geocode({ 'address': $scope.message.address }, function (results, status) {
+        geocoder.geocode({'address': $scope.message.address}, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 map.setCenter(results[0].geometry.location);
 

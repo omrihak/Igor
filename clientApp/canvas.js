@@ -18,7 +18,7 @@ var index = -1;
     function init() {
         if (location.hash)
             often = 5;
-        canvas = document.getElementById("canvas");
+        canvas = angular.element(document.querySelector('#canvas'))[0];
         ctx = canvas.getContext("2d");
         drawLines();
     }
